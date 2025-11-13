@@ -1,32 +1,52 @@
 package org.example.service;
 
 import org.example.model.Produto;
+import org.example.repository.ProdutoRepository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ProdutoServiceImpl implements ProdutoService{
-    @Override
-    public Produto cadastrarProduto(Produto produto) {
-        return null;
+
+    private ProdutoRepository produtoRepository;
+
+    public ProdutoServiceImpl(ProdutoRepository produtoRepository){
+        this.produtoRepository = produtoRepository;
     }
 
     @Override
-    public List<Produto> listarProdutos() {
-        return null;
+    public Produto cadastrarProduto(Produto produto) throws SQLException ,IllegalArgumentException {
+
+        if(produto.getPreco() < 0){
+            throw new IllegalArgumentException("Preço deve ser positivo.");
+        }
+        return produtoRepository.save(produto);
     }
 
     @Override
-    public Produto buscarPorId(int id) {
-        return null;
+    public List<Produto> listarProdutos() throws SQLException {
+        return produtoRepository.findAll();
     }
 
     @Override
-    public Produto atualizarProduto(Produto produto, int id) {
-        return null;
+    public Produto buscarPorId(int id) throws SQLException , IllegalArgumentException{
+        Produto produto = produtoRepository.findById(id);
+
+        return produto;
     }
 
     @Override
-    public boolean excluirProduto(int id) {
+    public Produto atualizarProduto(Produto produto, int id) throws SQLException {
+        produto.setId(id);
+
+        return produtoRepository.update(produto);
+    }
+
+    @Override
+    public boolean excluirProduto(int id) throws SQLException {
+        if (produtoRepository.deleteById(id)){
+            return true;
+        }
         return false;
     }
 }

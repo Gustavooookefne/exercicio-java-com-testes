@@ -12,10 +12,10 @@ import java.util.List;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
-public class ProdutoRepositoryImpl implements ProdutoRepository{
+public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     @Override
-    public Produto save(Produto produto) throws SQLException{
+    public Produto save(Produto produto) throws SQLException {
 
         Produto produtoPersistency = null;
 
@@ -150,6 +150,5 @@ public class ProdutoRepositoryImpl implements ProdutoRepository{
             }
         }
         return false;
-
     }
 }
