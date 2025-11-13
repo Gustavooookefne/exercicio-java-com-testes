@@ -6,6 +6,7 @@ import org.junit.jupiter.api.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -117,7 +118,7 @@ public class ProdutoServiceIntegrationTest {
 
     @Test
     @DisplayName("Não deve cadastrar produto com preço negativo (Regra de Negócio)")
-    void testCadastrarProduto_PrecoNegativo() {
+    void testCadastrarProduto_PrecoNegativo() throws SQLException {
         // ARRANGE
         Produto p = new Produto("Mouse", -50.00, 5, "Periféricos");
 
@@ -174,6 +175,7 @@ public class ProdutoServiceIntegrationTest {
         // ARRANGE
         Produto p = produtoService.cadastrarProduto(new Produto("Cadeira", 800.00, 3, "Móveis"));
         int idParaExcluir = p.getId();
+
 
         // ACT
         boolean resultado = produtoService.excluirProduto(idParaExcluir);
