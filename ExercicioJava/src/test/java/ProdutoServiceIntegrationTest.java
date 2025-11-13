@@ -190,7 +190,8 @@ public class ProdutoServiceIntegrationTest {
 
     @Test
     @DisplayName("Deve retornar false ao tentar excluir ID inexistente")
-    void testExcluirProduto_NaoEncontrado() {
+    void testExcluirProduto_NaoEncontrado() throws  SQLException {
+
         // ACT
         boolean resultado = produtoService.excluirProduto(999);
 
